@@ -20,8 +20,8 @@ class MyApp extends StatelessWidget {
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
         systemNavigationBarColor: Colors.white,
-        statusBarColor: Colors.white,
-        statusBarIconBrightness: Brightness.dark,
+        statusBarColor: Colors.white10,
+        statusBarIconBrightness: Brightness.light,
         systemNavigationBarIconBrightness: Brightness.dark,
       ),
     );
@@ -31,10 +31,7 @@ class MyApp extends StatelessWidget {
     ]);
 
     return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        body: AppBody(),
-      ),
+      child: AppBody(),
     );
   }
 }
@@ -47,46 +44,70 @@ class AppBody extends StatefulWidget {
 }
 
 class _AppBodyState extends State<AppBody> {
-  double angle = 0, height = 0;
+  double angle = pi / 4, height = 5;
   Size size;
 
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
 
-    return Stack(
-      children: <Widget>[
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: customSlider(),
-        ),
-        Align(
-          alignment: Alignment.centerRight,
-          child: customSlider(shouldRotate: true),
-        ),
-        Padding(
-          padding: EdgeInsets.all(size.width / 5 * 2),
-          child: CustomPaint(
-            child: null,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget customSlider({bool shouldRotate = false}) {
-    return RotatedBox(
-      quarterTurns: shouldRotate ? -1 : 0,
-      child: Container(
-        width: size.width / 1.5,
-        height: size.width / 5,
-        child: Slider(
-          value: shouldRotate ? height : angle,
-          onChanged: (newValue) => setState(
-            () => shouldRotate ? height = newValue : angle = newValue,
+    return Scaffold(
+      backgroundColor: Colors.white10,
+      body: CustomPaint(
+        painter: FractalPainter(),
+        child: Container(),
+      ),
+      bottomNavigationBar: Container(
+        height: size.height / 6,
+        child: BottomAppBar(
+          elevation: 0,
+          color: Colors.white,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            children: <Widget>[
+              customSlider(),
+              customSlider(isHeight: true),
+            ],
           ),
         ),
       ),
     );
   }
+
+  Widget customSlider({bool isHeight = false}) {
+    return Row(
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+          child: Icon(
+            isHeight ? Icons.linear_scale : Icons.rotate_90_degrees_ccw,
+          ),
+        ),
+        Slider(
+          min: 0,
+          max: isHeight ? 30 : pi,
+          activeColor: Colors.red[400],
+          inactiveColor: Colors.grey[200],
+          value: isHeight ? height : angle,
+          onChanged: (newValue) => setState(
+            () => isHeight ? height = newValue : angle = newValue,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class FractalPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {}
+
+  @override
+  bool shouldRepaint(FractalPainter oldDelegate) => false;
+
+  @override
+  bool shouldRebuildSemantics(FractalPainter oldDelegate) => false;
 }
