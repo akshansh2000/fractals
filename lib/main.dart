@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
         systemNavigationBarColor: Colors.white,
-        statusBarColor: Colors.white10,
+        statusBarColor: Colors.grey[900],
         statusBarIconBrightness: Brightness.light,
         systemNavigationBarIconBrightness: Brightness.dark,
       ),
@@ -52,7 +52,7 @@ class _AppBodyState extends State<AppBody> {
     size = MediaQuery.of(context).size;
 
     return Scaffold(
-      backgroundColor: Colors.white10,
+      backgroundColor: Colors.grey[900],
       body: Transform.scale(
         scale: scale,
         child: CustomPaint(
