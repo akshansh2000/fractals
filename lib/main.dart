@@ -119,8 +119,8 @@ class FractalPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     _canvas = canvas;
     _paint = Paint()
-      ..color = Colors.brown[800]
-      ..strokeWidth = 5
+      ..color = Colors.white
+      ..strokeWidth = 3
       ..strokeJoin = StrokeJoin.bevel
       ..style = PaintingStyle.stroke;
 
