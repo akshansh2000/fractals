@@ -83,10 +83,12 @@ class _AppBodyState extends State<AppBody> {
       children: <Widget>[
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-          child: Icon(
-            isHeight
-                ? Icons.linear_scale
-                : isScale ? Icons.zoom_in : Icons.rotate_90_degrees_ccw,
+          child: Text(
+            isHeight ? "depth" : isScale ? "zoom" : "angle",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+            ),
           ),
         ),
         Slider(
